@@ -1,6 +1,6 @@
 <?php
-    // tangkap data dari form
     if (isset($_POST['submit'])){
+        //var_dump($_POST);
         $nim = $_POST['nim'];
         $nama = $_POST['nama'];
         $id_jurusan = $_POST['id_jurusan'];
@@ -9,24 +9,24 @@
         $gender = $_POST['gender'];
         $alamat = $_POST['alamat'];
 
-        // 1. Buat koneksi dengan MySQL
+        // Buat koneksi dengan MySQL
         $con = mysqli_connect("localhost","root","","fakultas");
 
-        // 2. Check connection
+        // Check connection
         if (mysqli_connect_errno()) {
-            echo "Koneksi gagal" . mysqli_connect_error();
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
             exit();
         }else{
-            echo 'Koneksi berhasil';
+            echo 'koneksi berhasil';
         }
 
         $sql = "insert into mahasiswa (id_jurusan, nim, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat)
         values ($id_jurusan,'$nim', '$nama', '$gender', '$tpt_lahir', '$tgl_lahir', '$alamat')";
 
         if (mysqli_query($con, $sql)) {
-            echo "Data berhasil ditambah";
-         } else {
-            echo "Ada eror: " .$sql . "<br>"  . mysqli_error();
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($con);
         }
           
         mysqli_close($con);
@@ -39,10 +39,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Mahasiswa</title>
+    <title>Insert</title>
 </head>
 <body>
     <h1>Tambah Data</h1>
+
     <form action="" method="post">
         NIM: <input type="text" name="nim"><br>
         Nama: <input type="text" name="nama"><br>
